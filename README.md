@@ -8,9 +8,10 @@ This appliation simply uses the Cisco Webex Meetings REST API to gather all the 
 
 *Python version 3.8.2
 1. `git clone https://github.com/justinhaef/webex_meeting_host_counter.git`
-2. `pip install -r requirements.txt`
-3. Change the value in `.env` file of `ACCESS_TOKEN=` to your access token. 
-4. Run `python app.py`
+1. `pip install -r requirements.txt`
+1. Rename `.env_template` to `.env`.
+1. Change the value in `.env` file of `ACCESS_TOKEN=` to your access token. 
+1. Run `python app.py`
 
 ## Caveat
 
