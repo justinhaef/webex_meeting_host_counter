@@ -5,6 +5,13 @@ load_dotenv()
 import os
 import requests
 import json
+import logging
+
+logging.basicConfig(
+    filename='app.log', 
+    filemode='w', 
+    format='%(name)s - %(levelname)s - %(message)s'
+    )
 
 # We need to get our credintials to get a new Access Token.
 client_id = os.getenv("APP_CLIENTID")
@@ -23,6 +30,7 @@ def main(from_date: str, to_date: str, meetingType: str='meeting'):
     url = f'{base_url}/meetings?meetingType={meetingType}&from={from_date}&to={to_date}'
     response = requests.get(url=url, headers={'Authorization': f'Bearer {access_token}'})
     if response.status_code == 401:
+        logging.warning('Access Token was Expired')
         # get a new access_token
         new_access_token = refresh_my_token()
         # try with new access_token
@@ -30,6 +38,8 @@ def main(from_date: str, to_date: str, meetingType: str='meeting'):
     return response
 
 def refresh_my_token():
+    # Refresh the Access Token
+    logging.warning('Attempting to refresh access token...')
     url = f'{base_url}/access_token?grant_type=refresh_token'
     payload = {
         'client_id': client_id,
@@ -38,8 +48,6 @@ def refresh_my_token():
     }
     headers = {'accept':'application/json','content-type':'application/x-www-form-urlencoded'}
     response = webex.refresh_token(token_url=url, **payload)
-    # response = requests.post(url=url, data=payload, headers=headers)
-    print(response)
     return response['access_token']
 
     
@@ -70,3 +78,4 @@ if __name__ == "__main__":
     hosts = count_hosts(json_response)
     # For demo only
     print(json.dumps(hosts, indent=4))
+    logging.info(json.dumps(hosts, indent=4))
