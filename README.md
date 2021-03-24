@@ -10,7 +10,9 @@ This appliation simply uses the Cisco Webex Meetings REST API to gather all the 
 
 >Only tested on Python version 3.8.2
 
->This assumes you've already created your [Webex Integrations](https://developer.webex.com/docs/integrations). 
+>This assumes you've already created your [Webex Integrations](https://developer.webex.com/docs/integrations).
+
+> Helpful OAuth2.0 Summary for Webex [Walk Through](https://developer.webex.com/blog/real-world-walkthrough-of-building-an-oauth-webex-integration)
 1. `git clone https://github.com/justinhaef/webex_meeting_host_counter.git`
 1. `pip install -r requirements.txt`
 1. Rename `.env_template` to `.env`.
