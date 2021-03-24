@@ -6,13 +6,17 @@ This appliation simply uses the Cisco Webex Meetings REST API to gather all the 
 
 ## How to run
 
->Python version 3.8.2
+>Only tested on Python version 3.8.2
+
+>This assumes you've already created your [Webex Integrations](https://developer.webex.com/docs/integrations). 
 1. `git clone https://github.com/justinhaef/webex_meeting_host_counter.git`
 1. `pip install -r requirements.txt`
 1. Rename `.env_template` to `.env`.
-1. Change the value in `.env` file of `ACCESS_TOKEN=` to your access token. 
+1. Change the values in `.env` file to your values. 
+1. Run `python auth.py` to get the Access and Refresh Tokens
+1. Add those values to your `.env` file.
 1. Run `python app.py`
 
 ## Caveat
 
-This application is designed to be run only once, at the end of the month.  If this is run multiple times or the user is attempting to gather meetings from a previous month, the code in `app.py` lines `37` and `39` will need to be modified. 
+This application is designed to be run only once, at the end of the month.  If this is run multiple times or the user is attempting to gather meetings from a previous month, the code in `app.py` line `76` will need to be modified. 
