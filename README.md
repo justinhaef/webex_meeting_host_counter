@@ -1,5 +1,7 @@
 # Python Webex Host Counter
 
+## This is not for use in production, this is a demonstration of how to use OAuth and Webex API.  Use at your own discretion. 
+
 ## Purpose
 
 This appliation simply uses the Cisco Webex Meetings REST API to gather all the meetings from the current month.  It then counts all the meetings that happened for each host email address.  Concluding in printing out the value of the host email address and the number of meetings they were a host of for that month. 
