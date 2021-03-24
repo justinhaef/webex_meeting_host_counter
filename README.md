@@ -24,3 +24,9 @@ This appliation simply uses the Cisco Webex Meetings REST API to gather all the 
 ## Caveat
 
 This application is designed to be run only once, at the end of the month.  If this is run multiple times or the user is attempting to gather meetings from a previous month, the code in `app.py` line `76` will need to be modified. 
+
+## Things to remember
+
+1. The Scopes selected when the Integration was created need to be defined in the `auth.py` scopes list.
+1. The redirect URI in `auth.py` needs to match what was defined when the Integration was created. 
+1. Treat your client_id, client_secret, refresh_token, auth_token and access_token with care. 
