@@ -1,3 +1,4 @@
+from requests_oauthlib import OAuth2Session
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 load_dotenv()
@@ -14,6 +15,7 @@ access_token = os.getenv("ACCESS_TOKEN")
 
 base_url = 'https://webexapis.com/v1'
 
+webex = OAuth2Session(client_id)
 
 def main(from_date: str, to_date: str, meetingType: str='meeting'):
     """ Main entry point for the application.
@@ -30,12 +32,17 @@ def main(from_date: str, to_date: str, meetingType: str='meeting'):
 def refresh_my_token():
     url = f'{base_url}/access_token?grant_type=refresh_token'
     payload = {
-        f'client_id={client_id}&client_secret={client_secret}&refresh_token={refresh_token}'.encode()
+        'client_id': client_id,
+        'client_secret': client_secret,
+        'refresh_token': refresh_token
     }
     headers = {'accept':'application/json','content-type':'application/x-www-form-urlencoded'}
-    response = requests.post(url=url, data=payload, headers=headers)
-    print(response.content)
+    response = webex.refresh_token(token_url=url, **payload)
+    # response = requests.post(url=url, data=payload, headers=headers)
+    print(response)
     return response['access_token']
+
+    
 
 def count_hosts(meetings):
     """ Dedicated fuction to only count
