@@ -5,7 +5,13 @@ import os
 import requests
 import json
 
+# We need to get our credintials to get a new Access Token.
+client_id = os.getenv("APP_CLIENTID")
+client_secret = os.getenv("APP_SECRETID")
+
+refresh_token = os.getenv("REFRESH_TOKEN")
 access_token = os.getenv("ACCESS_TOKEN")
+
 base_url = 'https://webexapis.com/v1'
 
 
@@ -14,8 +20,22 @@ def main(from_date: str, to_date: str, meetingType: str='meeting'):
     """
     url = f'{base_url}/meetings?meetingType={meetingType}&from={from_date}&to={to_date}'
     response = requests.get(url=url, headers={'Authorization': f'Bearer {access_token}'})
+    if response.status_code == 401:
+        # get a new access_token
+        new_access_token = refresh_my_token()
+        # try with new access_token
+        response = requests.get(url=url, headers={'Authorization': f'Bearer {new_access_token}'})
     return response
 
+def refresh_my_token():
+    url = f'{base_url}/access_token?grant_type=refresh_token'
+    payload = {
+        f'client_id={client_id}&client_secret={client_secret}&refresh_token={refresh_token}'.encode()
+    }
+    headers = {'accept':'application/json','content-type':'application/x-www-form-urlencoded'}
+    response = requests.post(url=url, data=payload, headers=headers)
+    print(response.content)
+    return response['access_token']
 
 def count_hosts(meetings):
     """ Dedicated fuction to only count

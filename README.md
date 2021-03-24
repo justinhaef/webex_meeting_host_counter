@@ -6,7 +6,7 @@ This appliation simply uses the Cisco Webex Meetings REST API to gather all the 
 
 ## How to run
 
-*Python version 3.8.2
+>Python version 3.8.2
 1. `git clone https://github.com/justinhaef/webex_meeting_host_counter.git`
 1. `pip install -r requirements.txt`
 1. Rename `.env_template` to `.env`.
